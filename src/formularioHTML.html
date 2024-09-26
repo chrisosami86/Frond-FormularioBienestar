@@ -1,0 +1,46 @@
+    <header>
+        <img src="banner.png" alt="Banner del Formulario" class="banner">
+    </header>
+    <main>
+        <h1>Formulario de Registro</h1>
+        <form id="registro-form">
+            <label for="fecha-hora">Registro:</label>
+            <input type="text" id="fecha-hora" name="fecha-hora" value="" readonly>
+
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo" name="correo" required>
+
+            <label for="codigo-estudiante">Código de Estudiante:</label>
+            <input type="number" id="codigo-estudiante" name="codigo-estudiante" required>
+
+            <label for="numero-identificacion">Número de Identificación:</label>
+            <input type="number" id="numero-identificacion" name="numero-identificacion" required>
+
+            <label for="programa-academico">Programa Académico:</label>
+            <select id="programa-academico" name="programa-academico" required>
+                <option value="">Seleccione un programa</option>
+                <option value="programa-a">Programa A</option>
+                <option value="programa-b">Programa B</option>
+                <option value="programa-c">Programa C</option>
+            </select>
+
+            <label>Recibo Conforme:</label>
+            <label for="recibo-si">
+                <input type="radio" id="recibo-si" name="recibo" value="si" required> Si
+            </label>
+            <label for="recibo-no">
+                <input type="radio" id="recibo-no" name="recibo" value="no" required> No
+            </label>
+
+            <button type="submit">Enviar</button>
+        </form>
+    </main>
+    <script>
+        // Establecer la fecha y hora actual en el campo correspondiente
+        document.getElementById('fecha-hora').value = new Date().toLocaleString();
+    </script>
+
+<footer>
+    <p>&copy; 2024 - Laboratorio de la Universidad del Valle sede Yumbo</p>
+    <p>Formulario creado por el departamento de Recursos Tecnológicos</p>
+</footer>
