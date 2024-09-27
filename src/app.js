@@ -26,12 +26,12 @@ export const App = (elementId) => {
         
             try {
                 // Verificar la cantidad de bonos disponibles
-                const bonosResponse = await fetch('http://localhost:3000/bonos');
+                const bonosResponse = await fetch('https://back-bonos.vercel.app/bonos');
                 const bonosData = await bonosResponse.json();
         
                 if (bonosData.bonosDisponibles > 0) {
                     // Enviar los datos al servidor
-                    const response = await fetch('http://localhost:3000/bonos', {
+                    const response = await fetch('https://back-bonos.vercel.app/bonos', {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
