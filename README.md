@@ -6,7 +6,7 @@
 
 # Para correr la aplicación en local
 
-1. Instalar los paquetes de Node ```npm install```
-2. Asegúrate de terminar primero la configuración del back
-3. Cambiar las rutas de las peticiones a local para poder probar
-4. ```npm run dev``` en la terminal
+**1.** Instalar los paquetes de Node ```npm install```
+**2.** Asegúrate de terminar primero la configuración del back
+**3.** Cambiar las rutas de las peticiones a local para poder probar
+**4.** ```npm run dev``` en la terminal
