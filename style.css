@@ -57,11 +57,16 @@ label {
 .mensajeMain{
 display: flex;
 flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 10px;
+gap: 15px;
 padding: 20px;
+max-width: 600px;
+margin: auto;
 }
+
+.mensajeMain p span{
+  font-weight: bolder;
+}
+
 input[type="text"],
 input[type="email"],
 input[type="number"],

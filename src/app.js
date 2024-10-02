@@ -59,15 +59,7 @@ export const App = (elementId) => {
                             headers: {
                                 'Content-Type': 'application/json',
                             },
-                            body: JSON.stringify({
-                                nuevosBonos: bonosData.bonosDisponibles - 1, // Resta 1 al total
-                                fechaHora: formData.fechaHora,
-                                correo: formData.correo,
-                                codigoEstudiante: formData.codigoEstudiante,
-                                numeroIdentificacion: formData.numeroIdentificacion,
-                                programaAcademico: formData.programaAcademico,
-                                recibo: formData.recibo,
-                            }),
+                            body: JSON.stringify(formData),
                         });
 
                         if (response.ok) {
@@ -76,10 +68,10 @@ export const App = (elementId) => {
                             document.getElementById('registro-form').reset();
                             document.getElementById('fecha-hora').value = new Date().toLocaleString();
                             location.reload();
-                        } else if (response.status === 500) {
-                            alert('Error del servidor, por favor intenta más tarde.');
                         } else {
-                            alert('Error al registrar el bono.');
+                            const errorData = await response.json();
+                            alert(errorData.mensaje || 'Error al registrar el bono.');
+                            location.reload();
                         }
                     } catch (error) {
                         console.error('Error en el envío de los datos:', error);
@@ -89,6 +81,7 @@ export const App = (elementId) => {
                         ocultarPantallaCarga();
                     }
                 });
+
             } else {
                 // Renderizar mensaje de agotamiento de bonos
                 const mensajeAgotado = document.createElement('div');
