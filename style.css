@@ -43,7 +43,7 @@ h1, h2{
 
 form {
   max-width: 600px;
-  margin: auto;
+  margin: 20px auto;
   background: #fff;
   border-radius: 8px;
   padding: 20px;
@@ -113,5 +113,4 @@ footer {
   position: relative;
   bottom: 0;
   width: 100%;
-  margin: 20px 0;
 }

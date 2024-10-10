@@ -34,7 +34,7 @@ export const App = (elementId) => {
             if (bonosData.bonosDisponibles > 0) {
                 // Renderizar el formulario si hay bonos
                 const app = document.createElement('div');
-                app.innerHTML = htmlBonos; // Mandando la importación de HTML en crudo
+                app.innerHTML = htmlForm; // Mandando la importación de HTML en crudo
                 container.append(app);
                 document.getElementById('fecha-hora').value = new Date().toLocaleString();
 
@@ -94,6 +94,72 @@ export const App = (elementId) => {
             console.error('Error al cargar la aplicación:', error);
             alert('Ocurrió un error al cargar los bonos. Intenta nuevamente más tarde.');
         }
+
+        //logica login
+        document.getElementById('adminBonos').addEventListener('click', () => {
+            const container = document.querySelector(elementId); // Asegúrate de que el id del contenedor sea correcto
+            container.innerHTML = htmlLogin; // Cargar el formulario de inicio de sesión
+        });
+
+        document.addEventListener('submit', async (event) => {
+            event.preventDefault();
+        
+            // Verificar si el formulario de inicio de sesión fue enviado
+            if (event.target.id === 'login-form') {
+                const usuario = document.getElementById('usuario').value;
+                const password = document.getElementById('password').value;
+        
+                // Aquí deberías hacer una petición al servidor para validar las credenciales
+                const response = await fetch('http://localhost:3000/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ usuario, password }),
+                });
+        
+                const data = await response.json();
+                if (data.exito) {
+                    // Iniciar sesión exitosamente, mostrar la pantalla de administración de bonos
+                    const container = document.querySelector('#app');
+                    container.innerHTML = htmlBonos; // Mostrar la pantalla de administración de bonos
+                } else {
+                    alert('Credenciales incorrectas');
+                }
+            }
+        });
+
+        //Logica campo de bonos
+        document.addEventListener('submit', async (event) => {
+            event.preventDefault();
+        
+            if (event.target.id === 'bonos-form') {
+                const bonos = document.getElementById('bonos').value;
+        
+                try {
+                    const response = await fetch('http://localhost:3000/bonos/cargar', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ bonos }),
+                    });
+        
+                    const data = await response.json();
+                    if (response.ok) {
+                        alert('Bonos actualizados correctamente');
+                        location.reload();
+                    } else {
+                        alert(data.mensaje || 'Error al actualizar los bonos');
+                    }
+                } catch (error) {
+                    console.error('Error en la actualización de bonos:', error);
+                }
+            }
+        });
+        
+        
+        
     })();
 };
 
