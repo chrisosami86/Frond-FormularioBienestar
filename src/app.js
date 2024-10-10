@@ -1,5 +1,7 @@
 import htmlForm from "./formularioHTML.html?raw";
 import htmlMensaje from "./mensajeHTML.html?raw";
+import htmlLogin from "./loginHTML.html?raw";
+import htmlBonos from "./actuaBonosHTML.html?raw"
 
 export const App = (elementId) => {
     (async () => {
@@ -23,7 +25,7 @@ export const App = (elementId) => {
 
         try {
             // Verificar la cantidad de bonos disponibles
-            const bonosResponse = await fetch('https://back-bonos.vercel.app/bonos/disponibles');
+            const bonosResponse = await fetch('http://localhost:3000/bonos/disponibles');
             if (!bonosResponse.ok) {
                 throw new Error('Error al obtener los bonos disponibles');
             }
@@ -32,7 +34,7 @@ export const App = (elementId) => {
             if (bonosData.bonosDisponibles > 0) {
                 // Renderizar el formulario si hay bonos
                 const app = document.createElement('div');
-                app.innerHTML = htmlForm; // Mandando la importación de HTML en crudo
+                app.innerHTML = htmlBonos; // Mandando la importación de HTML en crudo
                 container.append(app);
                 document.getElementById('fecha-hora').value = new Date().toLocaleString();
 
@@ -54,7 +56,7 @@ export const App = (elementId) => {
 
                     try {
                         // Enviar los datos al servidor
-                        const response = await fetch('https://back-bonos.vercel.app/bonos', {
+                        const response = await fetch('http://localhost:3000/bonos', {
                             method: 'PUT',
                             headers: {
                                 'Content-Type': 'application/json',

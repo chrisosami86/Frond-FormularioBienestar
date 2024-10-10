@@ -36,8 +36,9 @@ main {
   padding: 20px;
 }
 
-h1 {
+h1, h2{
   text-align: center;
+  padding: 15px;
 }
 
 form {
@@ -70,6 +71,7 @@ margin: auto;
 input[type="text"],
 input[type="email"],
 input[type="number"],
+input[type="password"],
 select {
   width: 100%;
   padding: 10px;
@@ -111,4 +113,5 @@ footer {
   position: relative;
   bottom: 0;
   width: 100%;
+  margin: 20px 0;
 }
