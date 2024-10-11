@@ -25,7 +25,7 @@ export const App = (elementId) => {
 
         try {
             // Verificar la cantidad de bonos disponibles
-            const bonosResponse = await fetch('http://localhost:3000/bonos/disponibles');
+            const bonosResponse = await fetch('https://back-bonos.vercel.app/bonos/disponibles');
             if (!bonosResponse.ok) {
                 throw new Error('Error al obtener los bonos disponibles');
             }
@@ -56,7 +56,7 @@ export const App = (elementId) => {
 
                     try {
                         // Enviar los datos al servidor
-                        const response = await fetch('http://localhost:3000/bonos', {
+                        const response = await fetch('https://back-bonos.vercel.app/bonos', {
                             method: 'PUT',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ export const App = (elementId) => {
                 const password = document.getElementById('password').value;
         
                 // Aquí deberías hacer una petición al servidor para validar las credenciales
-                const response = await fetch('http://localhost:3000/login', {
+                const response = await fetch('https://back-bonos.vercel.app/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -137,7 +137,7 @@ export const App = (elementId) => {
                 const bonos = document.getElementById('bonos').value;
         
                 try {
-                    const response = await fetch('http://localhost:3000/bonos/cargar', {
+                    const response = await fetch('https://back-bonos.vercel.app/bonos/cargar', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
