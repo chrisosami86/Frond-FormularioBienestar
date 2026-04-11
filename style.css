@@ -64,6 +64,17 @@ max-width: 600px;
 margin: auto;
 }
 
+.mensajeMain2{
+display: flex;
+justify-content: flex-end;
+gap: 15px;
+padding: 15px;
+width: full;
+background-color: #711a1a;
+}
+
+
+
 .mensajeMain p span{
   font-weight: bolder;
 }
@@ -113,4 +124,8 @@ footer {
   position: relative;
   bottom: 0;
   width: 100%;
+}
+
+#adminBonos{
+  width:200px
 }
