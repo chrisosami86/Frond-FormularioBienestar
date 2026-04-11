@@ -92,10 +92,13 @@ export const App = (elementId) => {
         }
 
         // ─── Login admin ──────────────────────────────────────
-        document.getElementById('adminBonos').addEventListener('click', () => {
-            const container = document.querySelector(elementId);
-            container.innerHTML = htmlLogin;
-        });
+        const btnAdmin = document.getElementById('adminBonos');
+        if (btnAdmin) {
+            btnAdmin.addEventListener('click', () => {
+                const container = document.querySelector(elementId);
+                container.innerHTML = htmlLogin;
+            });
+        }
 
         document.addEventListener('submit', async (event) => {
             event.preventDefault();
