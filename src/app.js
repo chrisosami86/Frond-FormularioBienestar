@@ -4,8 +4,8 @@ import htmlLogin from "./loginHTML.html?raw";
 import htmlBonos from "./actuaBonosHTML.html?raw"
 
 // ─── Variables de entorno ─────────────────────────────────────
-const BACKEND_URL = import.meta.env.URL_APP_SERVER;
-const FRONTEND_SECRET = import.meta.env.FRONTEND_KEY_APP;
+const BACKEND_URL = import.meta.env.VITE_URL_APP_SERVER;
+const FRONTEND_SECRET = import.meta.env.VITE_FRONTEND_KEY_APP;
 
 // ─── Headers base para todas las peticiones ───────────────────
 // En lugar de escribir los headers en cada fetch, los tenemos aquí
