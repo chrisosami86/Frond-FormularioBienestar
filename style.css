@@ -70,7 +70,7 @@ justify-content: flex-end;
 gap: 15px;
 padding: 15px;
 width: full;
-background-color: #711a1a;
+background-color: #333;
 }
 
 
@@ -127,5 +127,5 @@ footer {
 }
 
 #adminBonos{
-  width:200px
+  width:110px;
 }
