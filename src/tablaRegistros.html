@@ -30,10 +30,11 @@
                 </button>
             </div>
         </div>
-        <table class="table max-w-[90%]">
+        <table class="table">
             <!-- head -->
             <thead class="text-md">
                 <tr>
+                    <th>#</th>
                     <th>Registro</th>
                     <th>Código</th>
                     <th>Documento</th>
@@ -41,23 +42,16 @@
                     <th>Correo</th>
                     <th>Programa</th>
                     <th>Conforme</th>
+                    <th>Estado</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th>1</th>
-                    <td>Cy Ganderton</td>
-                    <td>Quality Control Specialist</td>
-                    <td>DANNY SANTIAGO RAMIREZ CUASQUER</td>
-                    <td>alejandro.fernandez.arce@correounivalle.edu.co</td>
-                    <td>2722 - TECNOLOGÍA EN MANTENIMIENTO DE SISTEMAS ELECTROMECÁNICOS</td>
-                    <td>Blue</td>
-                </tr>
+               
             </tbody>
         </table>
         <div class="flex justify-center gap-6 max-w-md">
-            <button class="btn">Cargar Bonos</button>
-            <button class="btn">Sincronizar registros</button>
+            <button class="btn" id="pageCargaBonos">Cargar Bonos</button>
+            <button class="btn" id="sincGoogleSheet">Sincronizar registros</button>
         </div>
         <br>
     </div>
