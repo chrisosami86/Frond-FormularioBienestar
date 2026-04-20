@@ -1,3 +1,6 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
 *{
   margin: 0;
   padding: 0;
@@ -83,7 +86,7 @@ input[type="text"],
 input[type="email"],
 input[type="number"],
 input[type="password"],
-select {
+select{
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
@@ -100,6 +103,21 @@ button {
   border-radius: 4px;
   cursor: pointer;
   transition: 0.2s;
+}
+
+#refrescarTabla{
+  width: 45px;
+  padding: 5px
+}
+
+#buscarEnTabla{
+  margin: 0 60px 0 0;
+  width: 60px;
+  padding: 5px
+}
+
+#codigoEnTabla{
+  margin-bottom: 0;
 }
 
 button:hover {
@@ -127,5 +145,20 @@ footer {
 }
 
 #adminBonos{
-  width:110px;
+  width:120px;
+}
+
+#registro-form2{
+  display: flex;
+  flex-direction:column;
+  max-width:500px;
+  margin: 20px auto;
+}
+
+#btnContainerTable{
+  max-width: 50%;
+}
+
+td, th{
+  padding: 2px 5px 2px 5px;
 }
