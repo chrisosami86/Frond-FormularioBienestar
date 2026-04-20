@@ -50,6 +50,7 @@ export const App = (elementId) => {
     document.getElementById("adminBonos").addEventListener("click", () => {
       renderizar(container, htmlLogin);
       iniciarLogin();
+      
     });
 
     // ─── PASO 1: Mostrar formulario de búsqueda ───────────
@@ -204,6 +205,29 @@ export const App = (elementId) => {
 
     // ─── Lógica de login admin ────────────────────────────────
     function iniciarLogin() {
+      document.getElementById('togglePassword').addEventListener('click', () => {
+        const input = document.getElementById('password');
+        const ojoAbierto = document.getElementById('ojoAbierto');
+        const ojoCerrado = document.getElementById('ojoCerrado');
+
+        // Alternar entre type="password" y type="text"
+        if (input.type === 'password') {
+            input.type = 'text';
+            ojoAbierto.classList.remove('hidden');
+            ojoAbierto.classList.add('block');
+            
+            ojoCerrado.classList.remove('block');
+            ojoCerrado.classList.add('hidden');
+        } else {
+            input.type = 'password';
+            ojoAbierto.classList.remove('block');
+            ojoAbierto.classList.add('hidden');
+
+            ojoCerrado.classList.remove('hidden');
+            ojoCerrado.classList.add('block');
+        }
+    });
+
       const form = document.getElementById("login-form");
       if (!form) return;
 
