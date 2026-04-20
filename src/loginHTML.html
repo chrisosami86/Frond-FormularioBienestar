@@ -4,38 +4,22 @@
     <input type="text" id="usuario" placeholder="example@mail.com" name="usuario" required>
 
     <label for="password">Contraseña:</label>
-    <div style="position: relative; display: flex; align-items: center;">
-        <input type="password" id="password" name="password" required style="width: 100%; padding-right: 40px;">
-        <button type="button" id="togglePassword" style="position: absolute; right: 8px; background: none; border: none; cursor: pointer;">
+    <div class="relative flex items-center">
+        <input type="password" id="password" name="password" required>
+        <button type="button" id="togglePassword" class="absolute left-[91%] bottom-4 z-4">
             <!-- Ojo abierto — se muestra cuando la contraseña está oculta -->
-            <svg id="ojoAbierto" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5s5 2.24 5 5s-2.24 5-5 5m0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3s3-1.34 3-3s-1.34-3-3-3"/>
+            <svg id="ojoAbierto" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" class="hidden">
+                <path fill="#333"
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5s5 2.24 5 5s-2.24 5-5 5m0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3s3-1.34 3-3s-1.34-3-3-3" />
             </svg>
             <!-- Ojo cerrado — se muestra cuando la contraseña es visible -->
-            <svg id="ojoCerrado" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" style="display:none;">
-                <path fill="currentColor" d="M11.83 9L15 12.16V12a3 3 0 0 0-3-3zm-4.3.8l1.55 1.55c-.05.21-.08.43-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28l.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5c1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22L21 20.73L3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75c-1.73-4.39-6-7.5-11-7.5c-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7"/>
+            <svg id="ojoCerrado" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                class="block">
+                <path fill="#333"
+                    d="M11.83 9L15 12.16V12a3 3 0 0 0-3-3zm-4.3.8l1.55 1.55c-.05.21-.08.43-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28l.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5c1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22L21 20.73L3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75c-1.73-4.39-6-7.5-11-7.5c-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7" />
             </svg>
         </button>
     </div>
 
     <button type="submit">Iniciar sesión</button>
 </form>
-
-<script>
-    document.getElementById('togglePassword').addEventListener('click', () => {
-        const input = document.getElementById('password');
-        const ojoAbierto = document.getElementById('ojoAbierto');
-        const ojoCerrado = document.getElementById('ojoCerrado');
-
-        // Alternar entre type="password" y type="text"
-        if (input.type === 'password') {
-            input.type = 'text';
-            ojoAbierto.style.display = 'none';
-            ojoCerrado.style.display = 'block';
-        } else {
-            input.type = 'password';
-            ojoAbierto.style.display = 'block';
-            ojoCerrado.style.display = 'none';
-        }
-    });
-</script>

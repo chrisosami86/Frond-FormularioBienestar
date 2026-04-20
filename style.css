@@ -162,3 +162,9 @@ footer {
 td, th{
   padding: 2px 5px 2px 5px;
 }
+
+#togglePassword{
+  width: 40px;
+  background-color: transparent;
+  z-index: 10;
+}
