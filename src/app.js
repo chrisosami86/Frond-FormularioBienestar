@@ -57,6 +57,12 @@ export const App = (elementId) => {
     renderizar(container, htmlLoginEstudiante);
     iniciarBusquedaEstudiante();
 
+    function renderHomePage(){
+      document.getElementById('homePage').addEventListener('click',()=>{
+        renderizar(container, htmlLoginEstudiante);
+        iniciarBusquedaEstudiante();
+      });
+    }
     // ─── Lógica de búsqueda de estudiante ────────────────
     function iniciarBusquedaEstudiante() {
       const form = document.getElementById("registro-form2");
@@ -82,6 +88,7 @@ export const App = (elementId) => {
 
           if (responseEstudiante.status === 404) {
             renderizar(container, htmlNoEncontrado);
+            renderHomePage();
             return;
           }
 
@@ -110,6 +117,7 @@ export const App = (elementId) => {
               searchStuden.nombre;
             document.getElementById("fechaRegistro").innerText =
               new Date().toLocaleString("es-CO");
+              renderHomePage();
             return;
           }
 
@@ -119,6 +127,7 @@ export const App = (elementId) => {
 
           if (!bonosData.bonosDisponibles || bonosData.bonosDisponibles <= 0) {
             renderizar(container, htmlMensaje);
+            renderHomePage();
             return;
           }
 
@@ -172,6 +181,7 @@ export const App = (elementId) => {
               searchStuden.nombre;
             document.getElementById("fechaRegistro").innerText =
               new Date().toLocaleString("es-CO");
+              renderHomePage();
           } else if (
             response.status === 400 &&
             data.mensaje.includes("Ya registraste")
@@ -183,11 +193,13 @@ export const App = (elementId) => {
               searchStuden.nombre;
             document.getElementById("fechaRegistro").innerText =
               new Date().toLocaleString("es-CO");
+              renderHomePage();
           } else if (
             response.status === 400 &&
             data.mensaje.includes("agotado")
           ) {
             renderizar(container, htmlMensaje);
+            renderHomePage();
           } else {
             // Cualquier otro error — volver al inicio
             renderizar(container, htmlLoginEstudiante);
