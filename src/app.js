@@ -50,15 +50,14 @@ export const App = (elementId) => {
     document.getElementById("adminBonos").addEventListener("click", () => {
       renderizar(container, htmlLogin);
       iniciarLogin();
-      
     });
 
     // ─── PASO 1: Mostrar formulario de búsqueda ───────────
     renderizar(container, htmlLoginEstudiante);
     iniciarBusquedaEstudiante();
 
-    function renderHomePage(){
-      document.getElementById('homePage').addEventListener('click',()=>{
+    function renderHomePage() {
+      document.getElementById("homePage").addEventListener("click", () => {
         renderizar(container, htmlLoginEstudiante);
         iniciarBusquedaEstudiante();
       });
@@ -117,7 +116,7 @@ export const App = (elementId) => {
               searchStuden.nombre;
             document.getElementById("fechaRegistro").innerText =
               new Date().toLocaleString("es-CO");
-              renderHomePage();
+            renderHomePage();
             return;
           }
 
@@ -181,7 +180,7 @@ export const App = (elementId) => {
               searchStuden.nombre;
             document.getElementById("fechaRegistro").innerText =
               new Date().toLocaleString("es-CO");
-              renderHomePage();
+            renderHomePage();
           } else if (
             response.status === 400 &&
             data.mensaje.includes("Ya registraste")
@@ -193,7 +192,7 @@ export const App = (elementId) => {
               searchStuden.nombre;
             document.getElementById("fechaRegistro").innerText =
               new Date().toLocaleString("es-CO");
-              renderHomePage();
+            renderHomePage();
           } else if (
             response.status === 400 &&
             data.mensaje.includes("agotado")
@@ -217,28 +216,30 @@ export const App = (elementId) => {
 
     // ─── Lógica de login admin ────────────────────────────────
     function iniciarLogin() {
-      document.getElementById('togglePassword').addEventListener('click', () => {
-        const input = document.getElementById('password');
-        const ojoAbierto = document.getElementById('ojoAbierto');
-        const ojoCerrado = document.getElementById('ojoCerrado');
+      document
+        .getElementById("togglePassword")
+        .addEventListener("click", () => {
+          const input = document.getElementById("password");
+          const ojoAbierto = document.getElementById("ojoAbierto");
+          const ojoCerrado = document.getElementById("ojoCerrado");
 
-        // Alternar entre type="password" y type="text"
-        if (input.type === 'password') {
-            input.type = 'text';
-            ojoAbierto.classList.remove('hidden');
-            ojoAbierto.classList.add('block');
-            
-            ojoCerrado.classList.remove('block');
-            ojoCerrado.classList.add('hidden');
-        } else {
-            input.type = 'password';
-            ojoAbierto.classList.remove('block');
-            ojoAbierto.classList.add('hidden');
+          // Alternar entre type="password" y type="text"
+          if (input.type === "password") {
+            input.type = "text";
+            ojoAbierto.classList.remove("hidden");
+            ojoAbierto.classList.add("block");
 
-            ojoCerrado.classList.remove('hidden');
-            ojoCerrado.classList.add('block');
-        }
-    });
+            ojoCerrado.classList.remove("block");
+            ojoCerrado.classList.add("hidden");
+          } else {
+            input.type = "password";
+            ojoAbierto.classList.remove("block");
+            ojoAbierto.classList.add("hidden");
+
+            ojoCerrado.classList.remove("hidden");
+            ojoCerrado.classList.add("block");
+          }
+        });
 
       const form = document.getElementById("login-form");
       if (!form) return;
@@ -272,6 +273,11 @@ export const App = (elementId) => {
     async function iniciarTablaRegistros() {
       // Al entrar, cargar la tabla automáticamente
       await cargarTabla();
+
+      const bonosResponse = await fetch(`${BACKEND_URL}/bonos/disponibles`);
+      const bonosData = await bonosResponse.json();
+      document.getElementById("cantidadBonosDisponibles").innerText =
+        bonosData.bonosDisponibles ?? 0;
 
       // ─── Botón refrescar tabla ────────────────────────────
       document
@@ -325,46 +331,22 @@ export const App = (elementId) => {
           renderizar(container, htmlBonos);
           iniciarCargaBonos();
         });
-
-      // ─── Botón sincronizar con Google Sheets ─────────────
-      document
-        .getElementById("sincGoogleSheet")
-        .addEventListener("click", async () => {
-          mostrarPantallaCarga();
-          try {
-            const response = await fetch(
-              `${BACKEND_URL}/registros/sincronizar`,
-              {
-                method: "POST",
-                headers,
-              },
-            );
-            const data = await response.json();
-            alert(data.mensaje);
-
-            // Refrescar la tabla para mostrar los cambios
-            await cargarTabla();
-          } catch (error) {
-            console.error("Error al sincronizar:", error);
-            alert("Error al sincronizar con Google Sheets");
-          } finally {
-            ocultarPantallaCarga();
-          }
-        });
     }
 
     // ─── Función auxiliar: cargar todos los registros del día ─
     async function cargarTabla() {
       mostrarPantallaCarga();
       try {
+        // Cargar registros
         const response = await fetch(`${BACKEND_URL}/registros/hoy`, {
           headers,
         });
         const data = await response.json();
         renderizarFilas(data.registros || []);
-        // Restaurar el label de búsqueda
         document.getElementById("campoCodigo").innerText =
           `Buscar: (${data.total} registros hoy)`;
+
+        // Mostrar bonos disponibles en el label
       } catch (error) {
         console.error("Error al cargar tabla:", error);
       } finally {
@@ -391,24 +373,100 @@ export const App = (elementId) => {
       tbody.innerHTML = registros
         .map(
           (r, index) => `
-        <tr>
-            <th>${index + 1}</th>
+        <tr data-codigo="${r.codigo}">
+            <td>${index + 1}</td>
             <td>${r.fechaHora}</td>
             <td>${r.codigo}</td>
-            <td>${r.documento}</td>
             <td>${r.nombre}</td>
-            <td>${r.email}</td>
             <td>${r.programa}</td>
-            <td>${r.recibo}</td>
+            <td>
+                ${
+                  r.sincronizado
+                    ? `<span class="font-bold">${r.codBono}</span>`
+                    : `<input type="number" placeholder="N° bono" class="input input-bordered input-sm w-32 inputBono">`
+                }
+            </td>
             <td>
                 <span class="${r.sincronizado ? "text-green-600" : "text-red-500"} font-bold">
                     ${r.sincronizado ? "✓ Sincronizado" : "⏳ Pendiente"}
                 </span>
             </td>
+            <td>
+                ${
+                  r.sincronizado
+                    ? `<span class="text-green-600">✓</span>`
+                    : `<button class="btn btn-sm btnEnviar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M10 14l11 -11"/>
+                                <path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5"/>
+                            </svg>
+                       </button>`
+                }
+            </td>
         </tr>
     `,
         )
         .join("");
+
+      // Agregar eventos a todos los botones de enviar
+      document.querySelectorAll(".btnEnviar").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const fila = btn.closest("tr");
+          const codigo = fila.dataset.codigo;
+          const inputBono = fila.querySelector(".inputBono");
+          const codBono = inputBono ? inputBono.value.trim() : "";
+
+          // Validar que el campo no esté vacío
+          if (!codBono) {
+            alert("Debes ingresar el número de bono antes de enviar");
+            inputBono.focus();
+            return;
+          }
+
+          // Deshabilitar botón mientras procesa
+          btn.disabled = true;
+          btn.innerHTML = "...";
+
+          try {
+            const response = await fetch(`${BACKEND_URL}/registros/enviar`, {
+              method: "POST",
+              headers,
+              body: JSON.stringify({ codigo, codBono: Number(codBono) }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              // Actualizar solo esa fila sin recargar toda la tabla
+              const tdBono = fila.children[5];
+              const tdEstado = fila.children[6];
+              const tdAccion = fila.children[7];
+
+              tdBono.innerHTML = `<span class="font-bold">${codBono}</span>`;
+              tdEstado.innerHTML = `<span class="text-green-600 font-bold">✓ Sincronizado</span>`;
+              tdAccion.innerHTML = `<span class="text-green-600">✓</span>`;
+            } else {
+              alert(data.mensaje || "Error al enviar");
+              // Restaurar botón para reintentar
+              btn.disabled = false;
+              btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M10 14l11 -11"/>
+                        <path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5"/>
+                    </svg>`;
+            }
+          } catch (error) {
+            console.error("Error al enviar registro:", error);
+            alert("Error de conexión, intenta de nuevo");
+            btn.disabled = false;
+          }
+        });
+      });
     }
 
     // ─── Lógica de carga de bonos admin ──────────────────────
