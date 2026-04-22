@@ -5,25 +5,30 @@
     <p class="text-xl text-center">recarga el navegador y vuelve a ingresar.</p>
     <br>
     <hr>
-    <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 flex flex-col items-center gap-3">
+    <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 flex flex-col items-center">
         <br>
         <div class="flex items-center  justify-between gap-2" id="btnContainerTable">
             <label for="">Buscar:</label>
             <input type="text" placeholder="Buscar por código" id="codigoEnTabla" autofocus>
-            <button id="buscarEnTabla">
+            <button id="buscarEnTabla" class="btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24">
                     <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                         stroke-width="2">
                         <path d="m21 21l-4.34-4.34" />
                         <circle cx="11" cy="11" r="8" />
                     </g>
-                </svg>               
+                </svg>
             </button>
+            
+            <label class="font-bold">Bonos disponibles: </label>
+            <label id="cantidadBonosDisponibles">Aqui # bonos</label>
 
-            <div class="flex gap-3 w-3xl justify-center items-center">
+           
+
+            <div class="flex items-center font-bold" id="containerRefrescar">
                 <p>Actualizar tabla:</p>
-                <button id="refrescarTabla">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24">
+                <button id="refrescarTabla" class="btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24">
                         <path fill="currentColor"
                             d="M19.91 15.51h-4.53a1 1 0 0 0 0 2h2.4A8 8 0 0 1 4 12a1 1 0 0 0-2 0a10 10 0 0 0 16.88 7.23V21a1 1 0 0 0 2 0v-4.5a1 1 0 0 0-.97-.99M15 12a3 3 0 1 0-3 3a3 3 0 0 0 3-3m-4 0a1 1 0 1 1 1 1a1 1 0 0 1-1-1m1-10a10 10 0 0 0-6.88 2.77V3a1 1 0 0 0-2 0v4.5a1 1 0 0 0 1 1h4.5a1 1 0 0 0 0-2h-2.4A8 8 0 0 1 20 12a1 1 0 0 0 2 0A10 10 0 0 0 12 2" />
                     </svg>
@@ -33,20 +38,40 @@
         <table class="table">
             <!-- head -->
             <thead class="text-md">
-                <tr>
+                <tr class="text-center">
                     <th>#</th>
                     <th>Registro</th>
                     <th>Código</th>
-                    <th>Documento</th>
                     <th>Nombre</th>
-                    <th>Correo</th>
                     <th>Programa</th>
-                    <th>Conforme</th>
+                    <th>Cod_Bono</th>
                     <th>Estado</th>
+                    <th>Sincronizar</th>
                 </tr>
             </thead>
             <tbody>
-               
+                <tr>
+                    <td>consecutivo</td>
+                    <td>registro - fecha</td>
+                    <td>202566124</td>
+                    <td>Christian Saavedra</td>
+                    <td>2711 - Tecnologia en sistemas</td>
+                    <td>
+                        <input type="number" placeholder="Numero del bono asignado" id="codigoBono">
+                    </td>
+                    <td>Por Sincronizar</td>
+                    <td>
+                        <button class="btn" id="enviarASheet">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-send">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 14l11 -11" />
+                                <path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" />
+                            </svg>
+                        </button>
+                    </td>
+                </tr>
             </tbody>
         </table>
         <div class="flex justify-center gap-6 max-w-md">

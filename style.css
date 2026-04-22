@@ -109,13 +109,14 @@ button {
 
 #refrescarTabla{
   width: 45px;
-  padding: 5px
+  padding: 5px;
+  margin: 0 0 0 10px;
 }
 
 #buscarEnTabla{
-  margin: 0 60px 0 0;
-  width: 60px;
-  padding: 5px
+  padding: 5px;
+  width:50px;
+  margin: 0 20px 0 0;
 }
 
 #codigoEnTabla{
@@ -158,7 +159,14 @@ footer {
 }
 
 #btnContainerTable{
-  max-width: 50%;
+  display:flex;
+  justify-content: center;
+  width:full;
+  gap: 10px;
+}
+
+#btnContainerTable input{
+ width:200px
 }
 
 td, th{
@@ -174,4 +182,8 @@ td, th{
 #homePage{
   margin-bottom: 20px;
   width:30%
+}
+
+#containerRefrescar{
+  margin-left:30px;
 }
