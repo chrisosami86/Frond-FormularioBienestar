@@ -2,9 +2,11 @@
     <h1 class="text-3xl font-bold">TABLA DE REGISTROS DIARIOS</h1>
     <p class="text-xl text-center">El registro no se actualiza en tiempo real, si un estudiante viene y no lo
         encuentras,</p>
-    <p class="text-xl text-center">recarga el navegador y vuelve a ingresar.</p>
+    <p class="text-xl text-center flex justify-center gap-2">actualiza la tabla con el boton <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M19.91 15.51h-4.53a1 1 0 0 0 0 2h2.4A8 8 0 0 1 4 12a1 1 0 0 0-2 0a10 10 0 0 0 16.88 7.23V21a1 1 0 0 0 2 0v-4.5a1 1 0 0 0-.97-.99M15 12a3 3 0 1 0-3 3a3 3 0 0 0 3-3m-4 0a1 1 0 1 1 1 1a1 1 0 0 1-1-1m1-10a10 10 0 0 0-6.88 2.77V3a1 1 0 0 0-2 0v4.5a1 1 0 0 0 1 1h4.5a1 1 0 0 0 0-2h-2.4A8 8 0 0 1 20 12a1 1 0 0 0 2 0A10 10 0 0 0 12 2" />
+                    </svg>.</p>
     <br>
-    <hr>
     <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 flex flex-col items-center">
         <br>
         <div class="flex items-center  justify-between gap-2" id="btnContainerTable">
@@ -35,10 +37,10 @@
                 </button>
             </div>
         </div>
-        <table class="table">
+        <table class="table max-w-[97%] border border-gray-300">
             <!-- head -->
             <thead class="text-md">
-                <tr class="text-center">
+                <tr class="text-center bg-red-600 text-white rounded-2xl">
                     <th>#</th>
                     <th>Registro</th>
                     <th>Código</th>
@@ -50,31 +52,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>consecutivo</td>
-                    <td>registro - fecha</td>
-                    <td>202566124</td>
-                    <td>Christian Saavedra</td>
-                    <td>2711 - Tecnologia en sistemas</td>
-                    <td>
-                        <input type="number" placeholder="Numero del bono asignado" id="codigoBono">
-                    </td>
-                    <td>Por Sincronizar</td>
-                    <td>
-                        <button class="btn" id="enviarASheet">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-send">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M10 14l11 -11" />
-                                <path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" />
-                            </svg>
-                        </button>
-                    </td>
-                </tr>
+                
             </tbody>
         </table>
-        <div class="flex justify-center gap-6 max-w-md">
+        <br>
+        <div class="flex justify-center max-w-md">
             <button class="btn" id="pageCargaBonos">Cargar Bonos</button>
         </div>
         <br>

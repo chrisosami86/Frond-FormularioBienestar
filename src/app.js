@@ -269,21 +269,26 @@ export const App = (elementId) => {
       });
     }
 
+    async function mostrarBonosEnPanel() {
+      const bonosResponse = await fetch(`${BACKEND_URL}/bonos/disponibles`);
+      const bonosData = await bonosResponse.json();
+      document.getElementById("cantidadBonosDisponibles").innerText =
+        bonosData.bonosDisponibles ?? 0;      
+    }
+
     // ─── Lógica de la tabla de registros admin ────────────────
     async function iniciarTablaRegistros() {
       // Al entrar, cargar la tabla automáticamente
       await cargarTabla();
 
-      const bonosResponse = await fetch(`${BACKEND_URL}/bonos/disponibles`);
-      const bonosData = await bonosResponse.json();
-      document.getElementById("cantidadBonosDisponibles").innerText =
-        bonosData.bonosDisponibles ?? 0;
+      mostrarBonosEnPanel();
 
       // ─── Botón refrescar tabla ────────────────────────────
       document
         .getElementById("refrescarTabla")
         .addEventListener("click", async () => {
           await cargarTabla();
+          mostrarBonosEnPanel();
         });
 
       // ─── Botón buscar por código ──────────────────────────
@@ -374,24 +379,24 @@ export const App = (elementId) => {
         .map(
           (r, index) => `
         <tr data-codigo="${r.codigo}">
-            <td>${index + 1}</td>
-            <td>${r.fechaHora}</td>
-            <td>${r.codigo}</td>
-            <td>${r.nombre}</td>
-            <td>${r.programa}</td>
-            <td>
+            <td class='border-[0.5px] border-gray-200 text-center'>${index + 1}</td>
+            <td class='border-[0.5px] border-gray-200'>${r.fechaHora}</td>
+            <td class='border-[0.5px] border-gray-200'>${r.codigo}</td>
+            <td class='border-[0.5px] border-gray-200'>${r.nombre}</td>
+            <td class='border-[0.5px] border-gray-200'>${r.programa}</td>
+            <td class='border-[0.5px] border-gray-200 text-center'>
                 ${
                   r.sincronizado
                     ? `<span class="font-bold">${r.codBono}</span>`
                     : `<input type="number" placeholder="N° bono" class="input input-bordered input-sm w-32 inputBono">`
                 }
             </td>
-            <td>
+            <td class='border-[0.5px] border-gray-200'>
                 <span class="${r.sincronizado ? "text-green-600" : "text-red-500"} font-bold">
                     ${r.sincronizado ? "✓ Sincronizado" : "⏳ Pendiente"}
                 </span>
             </td>
-            <td>
+            <td class='border-[0.5px] border-gray-200 text-center'>
                 ${
                   r.sincronizado
                     ? `<span class="text-green-600">✓</span>`
