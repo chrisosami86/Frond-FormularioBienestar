@@ -286,6 +286,7 @@ export const App = (elementId) => {
       });
     }
 
+    //Problema de seguridad
     async function mostrarBonosEnPanel() {
       const bonosResponse = await fetch(`${BACKEND_URL}/bonos/disponibles`);
       const bonosData = await bonosResponse.json();
