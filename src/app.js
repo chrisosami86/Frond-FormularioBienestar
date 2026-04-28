@@ -62,6 +62,14 @@ export const App = (elementId) => {
         iniciarBusquedaEstudiante();
       });
     }
+    // Ocultar código en el frontend igual que el backend
+    // 202570107 → 2025***07
+    const ocultarCodigoFront = (codigo) => {
+      const str = String(codigo);
+      const inicio = str.slice(0, 4);
+      const final = str.slice(-2);
+      return `${inicio}***${final}`;
+    };
     // ─── Lógica de búsqueda de estudiante ────────────────
     function iniciarBusquedaEstudiante() {
       const form = document.getElementById("registro-form2");
@@ -80,9 +88,7 @@ export const App = (elementId) => {
           // 1. ¿Existe el estudiante en la base de datos?
           const responseEstudiante = await fetch(
             `${BACKEND_URL}/estudiante/${codigoEstudiante}`,
-            {
-              headers: { "x-frontend-token": FRONTEND_SECRET },
-            },
+            { headers: { "x-frontend-token": FRONTEND_SECRET } },
           );
 
           if (responseEstudiante.status === 404) {
@@ -95,7 +101,9 @@ export const App = (elementId) => {
 
           const { estudiante } = await responseEstudiante.json();
 
-          // Guardar datos del estudiante en la variable global
+          // Guardar datos en variable global
+          // ⚠️ El código real lo guardamos desde el input, NO desde estudiante.codigo
+          // porque estudiante.codigo viene ocultado (2025***07)
           searchStuden.codigo = codigoEstudiante;
           searchStuden.documento_identidad = estudiante.documento_identidad;
           searchStuden.nombre = estudiante.nombre;
@@ -103,15 +111,17 @@ export const App = (elementId) => {
           searchStuden.programa_academico = estudiante.programa_academico;
 
           // 2. ¿Ya tiene un bono registrado hoy?
+          // ✅ Ahora con token
           const responseRegistro = await fetch(
             `${BACKEND_URL}/estudiante/${codigoEstudiante}/registro`,
+            { headers: { "x-frontend-token": FRONTEND_SECRET } },
           );
           const registroData = await responseRegistro.json();
 
           if (registroData.yaRegistrado) {
             renderizar(container, htmlBonoConsultado);
             document.getElementById("codigoEstudiante").innerText =
-              "Código: " + searchStuden.codigo;
+              "Código: " + ocultarCodigoFront(codigoEstudiante);
             document.getElementById("nombreEstudiante").innerText =
               searchStuden.nombre;
             document.getElementById("fechaRegistro").innerText =
@@ -135,7 +145,11 @@ export const App = (elementId) => {
 
           document.getElementById("fecha-hora").value =
             new Date().toLocaleString("es-CO");
-          document.getElementById("codigo-estudiante").value = codigoEstudiante;
+
+          // ✅ Mostramos datos ocultados en pantalla
+          // pero el código real se guarda en searchStuden para el registro
+          document.getElementById("codigo-estudiante").value =
+            estudiante.codigo; // viene ocultado del backend, solo para mostrar
           document.getElementById("numero-identificacion").value =
             estudiante.documento_identidad;
           document.getElementById("nombre-estudiante").value =
@@ -145,6 +159,7 @@ export const App = (elementId) => {
             estudiante.programa_academico;
           document.getElementById("recibo-conforme").value = "SI";
 
+          // ✅ Pasamos el código REAL, no el ocultado
           iniciarRegistro(codigoEstudiante);
         } catch (error) {
           console.error("Error al buscar estudiante:", error);
@@ -174,6 +189,7 @@ export const App = (elementId) => {
 
           if (response.ok) {
             renderizar(container, htmlBonoRedimido);
+            searchStuden.codigo = "20*****";
             document.getElementById("codigoEstudiante").innerText =
               "Código:" + searchStuden.codigo;
             document.getElementById("nombreEstudiante").innerText =
@@ -186,6 +202,7 @@ export const App = (elementId) => {
             data.mensaje.includes("Ya registraste")
           ) {
             renderizar(container, htmlBonoConsultado);
+            searchStuden.codigo = "20*****";
             document.getElementById("codigoEstudiante").innerText =
               "Código:" + searchStuden.codigo;
             document.getElementById("nombreEstudiante").innerText =
@@ -273,7 +290,7 @@ export const App = (elementId) => {
       const bonosResponse = await fetch(`${BACKEND_URL}/bonos/disponibles`);
       const bonosData = await bonosResponse.json();
       document.getElementById("cantidadBonosDisponibles").innerText =
-        bonosData.bonosDisponibles ?? 0;      
+        bonosData.bonosDisponibles ?? 0;
     }
 
     // ─── Lógica de la tabla de registros admin ────────────────
@@ -311,16 +328,17 @@ export const App = (elementId) => {
             );
             const data = await response.json();
 
+            // ✅ Después
+            const campoCodigo = document.getElementById("campoCodigo");
+
             if (!data.yaRegistrado) {
-              // No está registrado hoy, mostrar tabla vacía con mensaje
               renderizarFilas([]);
-              document.getElementById("campoCodigo").innerText =
-                `Sin resultados para: ${codigo}`;
+              if (campoCodigo)
+                campoCodigo.innerText = `Sin resultados para: ${codigo}`;
             } else {
-              // Mostrar solo ese registro en la tabla
               renderizarFilas([data.registro]);
-              document.getElementById("campoCodigo").innerText =
-                `Resultado para: ${codigo}`;
+              if (campoCodigo)
+                campoCodigo.innerText = `Resultado para: ${codigo}`;
             }
           } catch (error) {
             console.error("Error al buscar en tabla:", error);
@@ -348,8 +366,9 @@ export const App = (elementId) => {
         });
         const data = await response.json();
         renderizarFilas(data.registros || []);
-        document.getElementById("campoCodigo").innerText =
-          `Buscar: (${data.total} registros hoy)`;
+        const campoCodigo = document.getElementById("campoCodigo");
+        if (campoCodigo)
+          campoCodigo.innerText = `Buscar: (${data.total} registros hoy)`;
 
         // Mostrar bonos disponibles en el label
       } catch (error) {
